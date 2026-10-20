@@ -72,7 +72,6 @@
         .ps-note.show {
             opacity: 1;
         }
-        
     </style>
 </head>
 <body>
@@ -81,10 +80,8 @@
 
     <div class="container">
         <div class="photo-gallery">
-    
             <img id="photo1" class="photo-item" src="anh1.jpg" alt="Ảnh 1">
             <img id="photo2" class="photo-item" src="anh2.jpg" alt="Ảnh 2">
-            
         </div>
         
         <div id="ps-note" class="ps-note">ps: tui ko có ảnh hjhj</div>
@@ -94,19 +91,20 @@
         window.addEventListener('DOMContentLoaded', () => {
             const photo1 = document.getElementById('photo1');
             const photo2 = document.getElementById('photo2');
-            const message = document.getElementById('final-message');
+            const psNote = document.getElementById('ps-note');
 
             setTimeout(() => {
                 photo1.classList.add('show');
             }, 500);
+
             setTimeout(() => {
                 photo2.classList.add('show');
-            }, 1000);
-            setTimeout(() => {
-                triggerFireworks();
-                psNote.classList.add('show');
+            }, 2000);
 
-            }, 100);
+            setTimeout(() => {
+                psNote.classList.add('show');
+                triggerFireworks();
+            }, 3500);
         });
         
         function triggerFireworks() {
