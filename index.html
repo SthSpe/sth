@@ -60,18 +60,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        .message {
-            margin-top: 20px;
-            color: #555;
-            font-size: 16px;
-            line-height: 1.5;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-        .message.show {
-            opacity: 1;
-        }
         
         .ps-note {
             margin-top: 15px;
@@ -113,10 +101,9 @@
             }, 500);
             setTimeout(() => {
                 photo2.classList.add('show');
-            }, 2500);
+            }, 1000);
             setTimeout(() => {
                 psNote.classList.add('show');
-                message.classList.add('show');
 
                 triggerFireworks();
             }, 100);
