@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khảo sát ý kiến nho nhỏ</title>
+    <!-- Thư viện pháo hoa canvas-confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        .question {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+        .options {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #555;
+        }
+        button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #ff6b81;
+        }
+        /* Màn hình chúc mừng ẩn ban đầu */
+        #surprised-screen {
+            display: none;
+        }
+        #surprised-screen h1 {
+            color: #ff4757;
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        #surprised-screen p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-card">
+        <!-- Phần Form Khảo Sát Giả Lập -->
+        <div id="survey-form">
+            <div class="question">📊 Khảo sát mức độ hài lòng cuối ngày</div>
+            <div class="options">
+                <label><input type="radio" name="q" checked> Hôm nay bạn thấy thế nào?</label>
+                <label><input type="radio" name="q"> Bình thường, không có gì đặc biệt</label>
+                <label><input type="radio" name="q"> Hơi mệt một chút...</label>
+            </div>
+            <button onclick="triggerSurprise()">Gửi câu trả lời</button>
+        </div>
+
+        <!-- Phần Bất Ngờ 20/10 -->
+        <div id="surprised-screen">
+            <h1>🌸 Chúc Mừng 20/10! 🌸</h1>
+            <p>Khảo sát chỉ là cái cớ thôi... Người quan trọng nhất là bạn, chúc bạn luôn xinh đẹp, vui vẻ và ngập tràn hạnh phúc trong ngày hôm nay nhé! 💕</p>
+        </div>
+    </div>
+
+    <script>
+        function triggerSurprise() {
+            // Ẩn form đi và hiện màn hình chúc mừng
+            document.getElementById('survey-form').style.display = 'none';
+            document.getElementById('surprised-screen').style.display = 'block';
+
+            // Bắn pháo hoa liên tục tạo hiệu ứng chúc mừng
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    </script>
+
+</body>
+</html>
