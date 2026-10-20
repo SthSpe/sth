@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khảo sát ý kiến nho nhỏ</title>
+    <title>20/10</title>
     <!-- Thư viện pháo hoa canvas-confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.min.js"></script>
     <style>
@@ -11,95 +11,109 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
+        
+        /* Dòng chữ chúc mừng to ở phía trên */
+        h1 {
+            color: #ff4757;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         .container {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
-            transition: all 0.5s ease;
         }
-        .question {
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #333;
-            font-weight: 600;
+
+        /* Khung chứa các bức ảnh */
+        .photo-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-        .options {
-            text-align: left;
-            margin-bottom: 20px;
+
+        /* Thiết kế mặc định cho các ảnh (ẩn đi để chờ hiệu ứng hiện ra) */
+        .photo-item {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+            display: none; /* Ẩn ban đầu */
         }
-        .options label {
+
+        /* Trạng thái khi ảnh được kích hoạt hiển thị */
+        .photo-item.show {
             display: block;
-            margin-bottom: 10px;
-            cursor: pointer;
-            font-size: 15px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Lời nhắn yêu thương ở cuối */
+        .message {
+            margin-top: 20px;
             color: #555;
-        }
-        button {
-            background-color: #ff4757;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #ff6b81;
-        }
-        /* Màn hình chúc mừng ẩn ban đầu */
-        #surprised-screen {
-            display: none;
-        }
-        #surprised-screen h1 {
-            color: #ff4757;
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
-        #surprised-screen p {
-            color: #666;
             font-size: 16px;
             line-height: 1.5;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .message.show {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-card">
-        <!-- Phần Form Khảo Sát Giả Lập -->
-        <div id="survey-form">
-            <div class="question">📊 Khảo sát mức độ hài lòng cuối ngày</div>
-            <div class="options">
-                <label><input type="radio" name="q" checked> Hôm nay bạn thấy thế nào?</label>
-                <label><input type="radio" name="q"> Bình thường, không có gì đặc biệt</label>
-                <label><input type="radio" name="q"> Hơi mệt một chút...</label>
-            </div>
-            <button onclick="triggerSurprise()">Gửi câu trả lời</button>
+    <h1>20/10 A5</h1>
+
+    <div class="container">
+        <div class="photo-gallery">
+    
+            <img id="photo1" class="photo-item" src="anh1.jpg" alt="Ảnh 1">
+            <img id="photo2" class="photo-item" src="anh2.jpg" alt="Ảnh 2">
+            
         </div>
 
-        <!-- Phần Bất Ngờ 20/10 -->
-        <div id="surprised-screen">
-            <h1>🌸 Chúc Mừng 20/10! 🌸</h1>
-            <p>Khảo sát chỉ là cái cớ thôi... Người quan trọng nhất là bạn, chúc bạn luôn xinh đẹp, vui vẻ và ngập tràn hạnh phúc trong ngày hôm nay nhé! 💕</p>
-        </div>
     </div>
 
     <script>
-        function triggerSurprise() {
-            // Ẩn form đi và hiện màn hình chúc mừng
-            document.getElementById('survey-form').style.display = 'none';
-            document.getElementById('surprised-screen').style.display = 'block';
+        // Hàm kích hoạt hiệu ứng xuất hiện lần lượt
+        window.addEventListener('DOMContentLoaded', () => {
+            const photo1 = document.getElementById('photo1');
+            const photo2 = document.getElementById('photo2');
+            const message = document.getElementById('final-message');
 
-            // Bắn pháo hoa liên tục tạo hiệu ứng chúc mừng
+            // Sau 0.5 giây hiện ảnh 1
+            setTimeout(() => {
+                photo1.classList.add('show');
+            }, 500);
+            setTimeout(() => {
+                photo2.classList.add('show');
+            }, 2500);
+            setTimeout(() => {
+                triggerFireworks();
+            }, 4500);
+        });
+
+        function triggerFireworks() {
             var duration = 3 * 1000;
             var end = Date.now() + duration;
 
